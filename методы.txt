@@ -1,0 +1,13 @@
+ List<Tag> findByName(String name);
+
+
+
+ArticleRepository
+
+
+
+    List<Article> findByTitle(String title);
+
+
+    List<Article> findByAuthor(String author);
+

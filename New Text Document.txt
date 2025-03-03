@@ -1,0 +1,9 @@
+1)mysql -u root -p
+
+CREATE DATABASE db_articlesnew;
+
+CREATE USER 'articlesnew'@'%' IDENTIFIED BY 'articlesnew';
+
+GRANT ALL PRIVILEGES ON db_articlesnew.* TO 'articlesnew'@'%';
+FLUSH PRIVILEGES;
+
