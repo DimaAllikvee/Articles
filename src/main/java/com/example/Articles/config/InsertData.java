@@ -10,11 +10,9 @@ import java.beans.Transient;
 import java.util.Random;
 
 
-
 import com.example.Articles.entity.Article;
 import com.example.Articles.entity.Tag;
 import com.example.Articles.entity.User;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -37,6 +35,7 @@ public class InsertData implements CommandLineRunner {
         this.articleRepository = articleRepository;
         this.tagRepository = tagRepository;
     }
+
     @Transient
     @Override
     public void run(String... args) {

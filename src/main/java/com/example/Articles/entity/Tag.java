@@ -2,6 +2,7 @@ package com.example.Articles.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tag")
@@ -26,7 +27,6 @@ public class Tag {
         this.createdAt = createdAt;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -49,5 +49,18 @@ public class Tag {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tag)) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(name, tag.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
