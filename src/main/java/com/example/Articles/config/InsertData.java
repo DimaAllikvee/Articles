@@ -43,12 +43,10 @@ public class InsertData implements CommandLineRunner {
     @Transient
     @Override
     public void run(String... args) {
-
-         //List<User> savedUsers = createFakeUsers(5);
-         //List<Tag> savedTags = createFakeTags(5);
-         //createFakeArticles(10, savedUsers, savedTags);
-         //List<Author> savedAuthors = createFakeAuthors(10);
-
+        //List<User> savedUsers = createFakeUsers(5);
+        //List<Tag> savedTags = createFakeTags(5);
+        //List<Author> savedAuthors = createFakeAuthors(10);
+       // createFakeArticles(10, savedAuthors, savedTags);
 
     }
 

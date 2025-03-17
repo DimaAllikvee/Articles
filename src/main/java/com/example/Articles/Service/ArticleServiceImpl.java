@@ -41,10 +41,8 @@ public class ArticleServiceImpl implements ArticleService {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new RuntimeException("Author not found with id=" + authorId));
 
-        // Устанавливаем автора для статьи:
         article.setAuthor(author);
 
-        // И только после этого сохраняем
         return articleRepository.save(article);
     }
 
@@ -73,18 +71,17 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.deleteById(id);
     }
 
-    @Override
-    public List<Article> getArticlesByAuthorId(Long authorId) {
-        return null;
-    }
+
 
     @Override
     public List<Article> getArticlesByTagId(Long tagId) {
-        return null;
+        return articleRepository.findByTagsId(tagId);
     }
 
     @Override
-    public List<Article> searchArticles(String Article) {
-        return articleRepository.findByTitle(Article);
+    public List<Article> getArticleByTitle(String title) {
+        return articleRepository.findByTitle(title);
     }
+
+
 }

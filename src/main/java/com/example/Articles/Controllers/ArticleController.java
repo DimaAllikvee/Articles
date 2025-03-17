@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,21 +30,7 @@ public class ArticleController {
         return "article/articles";
     }
 
-    @GetMapping("/articles/{id}")
-    public String getArticleById(@PathVariable("id") Long id, Model model) {
-        Optional<Article> optionalArticle = articleService.getArticleById(id);
-        if (optionalArticle.isPresent()) {
-            model.addAttribute("article", optionalArticle.get());
-        } else {
-            model.addAttribute("errorMessage", "Статья не найдена");
-        }
-        return "article/articles";
-    }
 
-    @GetMapping("/articles/searchById")
-    public String searchById(@RequestParam("id") Long id) {
-        return "redirect:/articles/" + id;
-    }
 
 
     @GetMapping("/create")
@@ -81,19 +68,62 @@ public class ArticleController {
     public String updateArticle(@PathVariable Long id,
                                 @ModelAttribute Article article) {
         articleService.updateArticle(id, article);
-        return "redirect:/articles/" + id;
+        return "redirect:/articles";
     }
 
 
     @GetMapping("/articles/delete/{id}")
     public String deleteArticle(@PathVariable("id") Long id) {
         articleService.deleteArticle(id);
-        // После удаления можно вернуться на список статей
         return "redirect:/articles";
     }
 
+    @GetMapping("/articles/multiSearch")
+    public String multiSearch(
+            @RequestParam("searchType") String searchType,
+            @RequestParam("searchValue") String searchValue,
+            Model model
+    ) {
+        List<Article> results = new ArrayList<>();
 
+        switch (searchType) {
+            case "articleId": {
+                // Поиск статьи по ID
+                try {
+                    Long articleId = Long.valueOf(searchValue);
+                    Optional<Article> maybeArticle = articleService.getArticleById(articleId);
+                    maybeArticle.ifPresent(results::add);
+                } catch (NumberFormatException e) {
+                    model.addAttribute("errorMessage", "ID статьи должен быть числом.");
+                }
+                break;
+            }
+            case "tagId": {
+                // Поиск статей по тегу
+                try {
+                    Long tagId = Long.valueOf(searchValue);
+                    List<Article> articlesByTag = articleService.getArticlesByTagId(tagId);
+                    results.addAll(articlesByTag);
+                } catch (NumberFormatException e) {
+                    model.addAttribute("errorMessage", "ID тега должен быть числом.");
+                }
+                break;
+            }
+            case "articleTitle": {
+                // Поиск статьи по названию
+                List<Article> articlesByTitle = articleService.getArticleByTitle(searchValue);
+                results.addAll(articlesByTitle);
+                break;
+            }
+            default:
+                model.addAttribute("errorMessage", "Неизвестный тип поиска");
+        }
 
+        model.addAttribute("articles", results);
+        return "article/articles";
+    }
 }
+
+
 
 

@@ -1,0 +1,23 @@
+/* Дополнительные стили для современного вида */
+body {
+    background-color: #f8f9fa;
+}
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid #dee2e6;
+}
+.btn-group .btn {
+    min-width: 120px;
+}
