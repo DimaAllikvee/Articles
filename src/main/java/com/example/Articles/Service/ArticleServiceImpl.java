@@ -8,6 +8,7 @@ import com.example.Articles.repository.ArticleRepository;
 import com.example.Articles.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,9 +50,23 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public Article updateArticle(Long id, Article article) {
-        return null;
+    public Article updateArticle(Long id, Article updatedArticle) {
+
+        Article existingArticle = articleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Статья не найдена с id=" + id));
+
+
+        existingArticle.setTitle(updatedArticle.getTitle());
+        existingArticle.setSlug(updatedArticle.getSlug());
+        existingArticle.setDescription(updatedArticle.getDescription());
+        existingArticle.setContent(updatedArticle.getContent());
+
+        existingArticle.setUpdatedAt(LocalDateTime.now());
+
+
+        return articleRepository.save(existingArticle);
     }
+
 
     @Override
     public void deleteArticle(Long id) {

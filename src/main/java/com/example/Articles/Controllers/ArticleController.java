@@ -67,4 +67,25 @@ public class ArticleController {
 
         return "redirect:/articles";
     }
+
+    @GetMapping("/articles/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Article existingArticle = articleService.getArticleById(id)
+                .orElseThrow(() -> new RuntimeException("Статья не найдена! id=" + id));
+
+        model.addAttribute("article", existingArticle);
+        return "article/editArticle";
+    }
+
+    @PostMapping("/articles/edit/{id}")
+    public String updateArticle(@PathVariable Long id,
+                                @ModelAttribute Article article) {
+        articleService.updateArticle(id, article);
+        return "redirect:/articles/" + id;
+    }
+
+
+
 }
+
+

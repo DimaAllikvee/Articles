@@ -109,7 +109,7 @@ public class InsertData implements CommandLineRunner {
             String slug = title.toLowerCase().replaceAll("[^a-z0-9]+", "-");
             article.setSlug(slug);
 
-    
+
             article.setDescription(faker.lorem().sentence(1));
             article.setContent(faker.lorem().paragraph(3));
 
