@@ -9,6 +9,7 @@
           crossorigin="anonymous">
 </head>
 <body>
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -20,13 +21,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <!-- Вкладка "Articles" -->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" data-bs-toggle="tab" href="#articles">Articles</a>
+                        <a class="nav-link active" aria-current="page" data-bs-toggle="tab"
+                           href="#articles">Articles</a>
                     </li>
-                    <!-- Добавьте другие вкладки по необходимости -->
+                    <!-- Вкладка "Users" -->
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#UserTab">Users</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#Users">Users</a>
                     </li>
                 </ul>
             </div>
@@ -34,43 +35,106 @@
     </nav>
 </header>
 
+
 <div class="container mt-5" style="max-width: 1000px;">
     <div class="tab-content">
 
-
-
-
-        <!-- Вкладка "Articles"-->
         <div id="articles" class="tab-pane fade show active">
-            <h1 class="mb-4">Список статей</h1>
-            <div class="table-responsive">
+
+
+            <div th:if="${articles}">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="mb-0">Список статей</h1>
+                    <a th:href="@{/create}" class="btn btn-primary">
+                        Добавить статью
+                    </a>
+                </div>
+
+                <div class="table-responsive mb-4">
+                    <table class="table table-sm table-bordered table-hover align-middle">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Автор</th>
+                            <th scope="col">Заголовок</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Описание</th>
+                            <th scope="col">Контент</th>
+                            <th scope="col">Дата создания</th>
+                            <th scope="col">Дата обновления</th>
+                            <th scope="col" class="text-center">Действия</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="art : ${articles}">
+                            <td th:text="${art.id}"></td>
+                            <td th:text="${art.author.firstName}"></td>
+                            <td th:text="${art.title}"></td>
+                            <td th:text="${art.slug}"></td>
+                            <td th:text="${art.description}"></td>
+                            <td>
+                                <div th:text="${#strings.abbreviate(art.content, 100)}"></div>
+                            </td>
+                            <td th:text="${#temporals.format(art.createdAt, 'dd.MM.yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(art.updatedAt, 'dd.MM.yyyy HH:mm')}"></td>
+                            <td class="text-center">
+                                <a th:href="@{/articles/edit/{id}(id=${art.id})}"
+                                   class="btn btn-sm btn-warning">
+                                    Редактировать
+                                </a>
+                                <a th:href="@{/articles/delete/{id}(id=${art.id})}"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Вы уверены?');">
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <form th:action="@{/articles/searchById}" method="get" class="row g-2 mb-3">
+                    <div class="col-auto">
+                        <input type="text" class="form-control"
+                               name="id" placeholder="Введите ID"/>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-info">
+                            Поиск
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <div th:if="${article}">
+                <h1 class="mb-4">Детальная страница статьи</h1>
+
                 <table class="table table-sm table-bordered table-hover">
                     <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
-                        <th>Автор</th>
-                        <th>Заголовок</th>
-                        <th>Slug</th>
-                        <th>Описание</th>
-                        <th>Контент</th>
-                        <th>Дата создания</th>
-                        <th>Дата обновления</th>
-                        <th>Действия</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Заголовок</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Описание</th>
+                        <th scope="col">Контент</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col">Дата обновления</th>
+                        <th scope="col" class="text-center">Действия</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="article : ${articles}">
+                    <tr>
                         <td th:text="${article.id}"></td>
-                        <td th:text="${article.author.username}"></td>
+                        <td th:text="${article.author.firstName}"></td>
                         <td th:text="${article.title}"></td>
                         <td th:text="${article.slug}"></td>
                         <td th:text="${article.description}"></td>
-                        <td>
-                            <div th:text="${#strings.abbreviate(article.content, 100)}"></div>
-                        </td>
+                        <td th:text="${article.content}"></td>
                         <td th:text="${#temporals.format(article.createdAt, 'dd.MM.yyyy HH:mm')}"></td>
                         <td th:text="${#temporals.format(article.updatedAt, 'dd.MM.yyyy HH:mm')}"></td>
-                        <td>
+                        <td class="text-center">
                             <a th:href="@{/articles/edit/{id}(id=${article.id})}"
                                class="btn btn-sm btn-warning">
                                 Редактировать
@@ -85,12 +149,20 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Если есть ошибка -->
+            <div th:if="${errorMessage}">
+                <div class="alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
+
         </div>
 
-
+        <!-- Вкладка "Users" -->
         <div id="Users" class="tab-pane fade">
             <h1>Users</h1>
-
+            <!-- Здесь вывод / управление пользователями -->
         </div>
     </div>
 </div>

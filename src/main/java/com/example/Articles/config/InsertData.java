@@ -1,5 +1,7 @@
 package com.example.Articles.config;
+import com.example.Articles.entity.Author;
 import com.example.Articles.repository.ArticleRepository;
+import com.example.Articles.repository.AuthorRepository;
 import com.example.Articles.repository.TagRepository;
 import com.example.Articles.repository.UserRepository;
 import com.github.javafaker.Faker;
@@ -24,25 +26,28 @@ public class InsertData implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
+    private final AuthorRepository authorRepository;
 
     private final Faker faker = new Faker();
     private final Random random = new Random();
 
     public InsertData(UserRepository userRepository,
                       ArticleRepository articleRepository,
-                      TagRepository tagRepository) {
-        this.userRepository = userRepository;
+                      TagRepository tagRepository, AuthorRepository authorRepository) {
+         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.tagRepository = tagRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Transient
     @Override
     public void run(String... args) {
 
-        List<User> savedUsers = createFakeUsers(5);
-        List<Tag> savedTags = createFakeTags(5);
-        createFakeArticles(10, savedUsers, savedTags);
+         //List<User> savedUsers = createFakeUsers(5);
+         //List<Tag> savedTags = createFakeTags(5);
+         //createFakeArticles(10, savedUsers, savedTags);
+         //List<Author> savedAuthors = createFakeAuthors(10);
 
 
     }
@@ -75,11 +80,27 @@ public class InsertData implements CommandLineRunner {
         return tags;
     }
 
-    private void createFakeArticles(int count, List<User> users, List<Tag> tags) {
+
+    private List<Author> createFakeAuthors(int count) {
+        List<Author> authors = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Author author = new Author();
+            author.setFirstName(faker.name().firstName());
+            author.setLastName(faker.name().lastName());
+
+            authorRepository.save(author);
+            authors.add(author);
+        }
+        return authors;
+    }
+
+    private void createFakeArticles(int count, List<Author> authors, List<Tag> tags) {
         for (int i = 0; i < count; i++) {
             Article article = new Article();
 
-            User randomAuthor = users.get(random.nextInt(users.size()));
+
+            Author randomAuthor = authors.get(random.nextInt(authors.size()));
+
             article.setAuthor(randomAuthor);
 
 
@@ -88,7 +109,7 @@ public class InsertData implements CommandLineRunner {
             String slug = title.toLowerCase().replaceAll("[^a-z0-9]+", "-");
             article.setSlug(slug);
 
-
+    
             article.setDescription(faker.lorem().sentence(1));
             article.setContent(faker.lorem().paragraph(3));
 
@@ -103,10 +124,12 @@ public class InsertData implements CommandLineRunner {
                 randomTags.add(randomTag);
             }
 
+
             article.setTags(randomTags);
 
 
             articleRepository.save(article);
         }
     }
+
 }

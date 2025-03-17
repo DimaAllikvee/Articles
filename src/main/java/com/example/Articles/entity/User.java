@@ -31,8 +31,7 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<Article> articles;
+
 
 
     public Long getId() {
@@ -91,11 +90,4 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
-    }
 }

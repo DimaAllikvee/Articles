@@ -14,7 +14,7 @@ public interface ArticleService {
     Optional<Article> getArticleById(Long id);
 
     // Добавить новую статью
-    Article createArticle(Article article);
+    Article createArticle(Article article, Long authorId);
 
     // Обновить статью
     Article updateArticle(Long id, Article article);

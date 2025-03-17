@@ -18,7 +18,7 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    private Author author;
 
     @Column(length = 50, nullable = false)
     private String title;
@@ -55,7 +55,7 @@ public class Article {
 
 
     public Article(Long id,
-                   User author,
+                   Author author,
                    String title,
                    String slug,
                    String description,
@@ -85,11 +85,11 @@ public class Article {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

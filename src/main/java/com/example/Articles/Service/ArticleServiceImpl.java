@@ -2,7 +2,10 @@ package com.example.Articles.Service;
 
 import com.example.Articles.Interface.ArticleService;
 import com.example.Articles.entity.Article;
+import com.example.Articles.entity.Author;
+import com.example.Articles.entity.User;
 import com.example.Articles.repository.ArticleRepository;
+import com.example.Articles.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +15,11 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final AuthorRepository authorRepository;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, AuthorRepository authorRepository) {
         this.articleRepository = articleRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Override
@@ -31,9 +36,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article createArticle(Article article) {
+    public Article createArticle(Article article, Long authorId) {
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException("Author not found with id=" + authorId));
+
+        // Устанавливаем автора для статьи:
+        article.setAuthor(author);
+
+        // И только после этого сохраняем
         return articleRepository.save(article);
     }
+
 
     @Override
     public Article updateArticle(Long id, Article article) {
