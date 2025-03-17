@@ -70,10 +70,10 @@ public class ArticleController {
 
     @GetMapping("/articles/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Article existingArticle = articleService.getArticleById(id)
+        Article currentArticle = articleService.getArticleById(id)
                 .orElseThrow(() -> new RuntimeException("Статья не найдена! id=" + id));
 
-        model.addAttribute("article", existingArticle);
+        model.addAttribute("article", currentArticle);
         return "article/editArticle";
     }
 
@@ -82,6 +82,14 @@ public class ArticleController {
                                 @ModelAttribute Article article) {
         articleService.updateArticle(id, article);
         return "redirect:/articles/" + id;
+    }
+
+
+    @GetMapping("/articles/delete/{id}")
+    public String deleteArticle(@PathVariable("id") Long id) {
+        articleService.deleteArticle(id);
+        // После удаления можно вернуться на список статей
+        return "redirect:/articles";
     }
 
 
