@@ -12,7 +12,8 @@ Articles — это веб-приложение на базе Spring Boot, по�
 
 ## Структура проекта
 
-![image](https://github.com/user-attachments/assets/292b7837-fed4-466a-ba69-028d9227ea44)
+![image](https://github.com/user-attachments/assets/3ab4e81c-e472-42f8-a2dc-453d7355ae99))
+
 
 config: хранит конфигурационные классы (безопасность, инициализация БД).
 
@@ -154,7 +155,8 @@ mysql -u root -p clothing_store < "C:\dump.sql"
 
 ## База данных (ER-диаграмма)
 
-![ER диаграмма](https://github.com/user-attachments/assets/f6d8b4c5-a7cc-44a0-9ac7-19c68d6ac98f)
+![ER диаграмма]![image](https://github.com/user-attachments/assets/8430fa28-4b7c-4eaa-85af-27db712c1688)
+
 
 ## Функциональность
 
