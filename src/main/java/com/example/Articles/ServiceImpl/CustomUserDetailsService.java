@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-        // Если в базе случайно есть пробелы в пароле, удаляем их
+
         user.setPassword(user.getPassword().trim());
         System.out.println(user.getUsername() + " " + user.getEmail() + " " + user.getPassword());
         return CustomUserDetails.build(user);

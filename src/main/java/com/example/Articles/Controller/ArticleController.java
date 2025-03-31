@@ -83,7 +83,7 @@ public class ArticleController {
     public String showEditForm(@PathVariable Long id, Model model, Authentication authentication) {
         Article article = articleService.getArticleById(id).orElseThrow();
 
-        // Используем AuthService для получения имени пользователя и проверки роли
+        // AuthService для получения имени пользователя и проверки роли
         String username = authServiceImpl.getCurrentUsername(authentication);
         boolean isAdmin = authServiceImpl.isAdmin(authentication);
 
