@@ -155,7 +155,7 @@ mysql -u root -p clothing_store < "C:\dump.sql"
 
 ## База данных (ER-диаграмма)
 
-![ER диаграмма]![image](https://github.com/user-attachments/assets/8430fa28-4b7c-4eaa-85af-27db712c1688)
+
 
 
 ## Функциональность
