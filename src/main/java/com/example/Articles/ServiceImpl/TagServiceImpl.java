@@ -7,6 +7,7 @@ import com.example.Articles.repository.TagRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -20,6 +21,14 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
+    }
+
+    // сортироватка  по алфавиту
+    @Override
+    public List<Tag> getAllTagsSorted() {
+        List<Tag> tags = tagRepository.findAll();
+        tags.sort(Comparator.comparing(Tag::getName, String.CASE_INSENSITIVE_ORDER));
+        return tags;
     }
 
     @Override

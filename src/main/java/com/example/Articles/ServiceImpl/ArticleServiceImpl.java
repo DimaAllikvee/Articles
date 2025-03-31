@@ -4,7 +4,7 @@ import com.example.Articles.entity.Article;
 import com.example.Articles.interfaces.ArticleService;
 import com.example.Articles.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;

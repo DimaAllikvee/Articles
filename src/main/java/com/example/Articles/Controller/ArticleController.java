@@ -30,7 +30,6 @@ public class ArticleController {
         this.articleService = articleService;
         this.authServiceImpl = authServiceImpl;
         this.tagService = tagService;
-
         this.userService = userService;
     }
 
@@ -65,8 +64,6 @@ public class ArticleController {
         if (!isAdmin && !article.getUser().getUsername().equals(username)) {
             return "redirect:/articles?error=not-authorized";
         }
-
-
 
         article.setTitle(updatedArticle.getTitle());
         article.setDescription(updatedArticle.getDescription());
@@ -130,7 +127,6 @@ public class ArticleController {
         return "redirect:/articles";
     }
 
-
     @GetMapping("/by-author/{username}")
     public String getArticlesByAuthor(@PathVariable String username, Model model, Authentication authentication) {
         List<Article> articles = articleService.getArticlesByUsername(username);
@@ -149,6 +145,7 @@ public class ArticleController {
         return "articles/list";
     }
 
+
     @GetMapping("/search")
     public String searchArticles(@RequestParam("q") String query, Model model, Authentication authentication) {
         List<Article> articles = articleService.searchArticles(query);
@@ -165,11 +162,6 @@ public class ArticleController {
         model.addAttribute("articles", articles);
         return "articles/list_guest";
     }
-
-
-
-
-
 
 }
 

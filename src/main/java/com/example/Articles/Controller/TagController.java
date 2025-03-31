@@ -23,7 +23,7 @@ public class TagController {
 
     @GetMapping
     public String getAllTags(Model model){
-        List<Tag> tags = tagService.getAllTags();
+        List<Tag> tags = tagService.getAllTagsSorted();
         model.addAttribute("tags", tags);
         return "tags/list";
     }

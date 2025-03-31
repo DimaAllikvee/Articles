@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,15 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    // сортироватка  по алфавиту
+    @Override
+    public List<User> getAllUsersSorted() {
+        List<User> users = userRepository.findAll();
+        users.sort(Comparator.comparing(User::getUsername, String.CASE_INSENSITIVE_ORDER));
+        return users;
+    }
+
 
     @Override
     public User createUser(User user) {
