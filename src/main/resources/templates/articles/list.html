@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+
+    <link rel="stylesheet" th:href="@{/css/article-list.css}" />
+
+</head>
+<body>
+<div class="wrapper d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">My Articles</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/articles">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tags">Tags</a>
+                        </li>
+                        <!-- Кнопка "Добавить статью" -->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/articles/create}">
+                                <i class="fas fa-plus"></i> Добавить статью
+                            </a>
+                        </li>
+                        <!-- Кнопка выхода -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Форма поиска -->
+        <form class="d-flex mb-4" th:action="@{/articles/search}" method="get">
+            <input class="form-control me-2" type="search" placeholder="Поиск по статьям" aria-label="Search" name="q"
+                   th:value="${query}">
+            <button class="btn btn-outline-success" type="submit">Искать</button>
+        </form>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">Articles</h1>
+            </div>
+        </div>
+
+        <!-- Если список пуст, выводим сообщение -->
+        <div th:if="${#lists.isEmpty(articles)}">
+            <p class="text-muted">Нет статей по вашему запросу</p>
+        </div>
+
+        <div class="row">
+            <!-- Перебор списка статей -->
+            <div class="col-md-4 mb-4" th:each="article : ${articles}">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${article.title}">Article Title</h5>
+                        <p class="card-text" th:text="${article.description}">Article description goes here.</p>
+                        <p class="text-muted">
+                            <small th:text="${#temporals.format(article.createdAt, 'dd.MM.yyyy HH:mm')}">Date</small>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{'/articles/' + ${article.id}}" class="btn btn-primary">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 My Articles. All Rights Reserved.</p>
+            <p>
+                <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+            </p>
+        </div>
+    </footer>
+</div>
+
+<!-- Скрытая форма для выхода -->
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+</form>
+
+<!-- Bootstrap JS и зависимости (jQuery, Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

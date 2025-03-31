@@ -1,0 +1,182 @@
+:root {
+    --primary-color: #3e4e88;
+    --secondary-color: #f8f9fa;
+    --accent-color: #ff6b6b;
+    --text-color: #333;
+    --light-gray: #f5f7fa;
+    --border-radius: 12px;
+    --box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    padding: 20px 0;
+}
+
+.edit-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.edit-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.edit-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 20px;
+}
+
+.edit-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #4a5568;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 108, 250, 0.2);
+}
+
+.editor-height {
+    min-height: 300px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.ql-container, .ql-toolbar {
+    border-radius: 8px;
+    border-color: #e2e8f0;
+}
+
+.ql-toolbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #f8f9fa;
+}
+
+.ql-container {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-radius: 8px;
+    border-color: #e2e8f0;
+    padding: 6px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 108, 250, 0.2);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    border-radius: 16px;
+    padding: 4px 10px;
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
+    margin-right: 5px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #3a5cda;
+    border-color: #3a5cda;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    color: #64748b;
+    border-color: #cbd5e1;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f1f5f9;
+    color: #334155;
+    border-color: #cbd5e1;
+}
+
+.text-muted {
+    color: #64748b !important;
+    font-size: 14px;
+}
+
+.section-divider {
+    border-top: 1px solid #eaeaea;
+    margin: 30px 0;
+}
+
+.field-group {
+    margin-bottom: 24px;
+}
+
+/* Form section styling */
+.form-section {
+    background-color: #f8fafc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.form-section-title {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .edit-card {
+        padding: 20px 15px;
+    }
+
+    .col-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Tag</title>
+  <!-- Simple Line Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <link rel="stylesheet" th:href="@{/css/create-tag.css}" />
+  <script th:src="@{/js/create_tag.js}" defer></script>
+</head>
+<body>
+<div class="create-form">
+
+
+  <form method="post" th:action="@{/tags}" th:object="${tag}">
+
+    <a href="/tags" class="close-circle">&times;</a>
+    <div class="form-icon">
+      <span><i class="icon icon-tag"></i></span>
+    </div>
+
+    <!-- Блок отладки: сообщение об ошибке -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+      <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Блок отладки: отладочное сообщение -->
+    <div th:if="${debugMessage}" class="alert alert-info">
+      <span th:text="${debugMessage}"></span>
+    </div>
+
+    <!-- Поле для имени тега -->
+    <div class="form-group">
+      <label for="name" class="form-label">Tag Name</label>
+      <input type="text" class="form-control item" id="name" placeholder="Enter tag name" th:field="*{name}" required>
+    </div>
+
+    <!-- Поле для даты создания (выбор через календарь) -->
+    <div class="form-group">
+      <label for="createdAt" class="form-label">Created At</label>
+      <input type="datetime-local" class="form-control item" id="createdAt" th:field="*{createdAt}" required>
+    </div>
+
+    <!-- Поле для даты обновления (выбор через календарь) -->
+    <div class="form-group">
+      <label for="updatedAt" class="form-label">Updated At</label>
+      <input type="datetime-local" class="form-control item" id="updatedAt" th:field="*{updatedAt}" required>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-block create-account">Create Tag</button>
+    </div>
+  </form>
+
+
+</div>
+</body>
+</html>

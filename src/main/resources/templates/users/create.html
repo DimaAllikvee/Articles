@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create User</title>
+    <!-- Simple Line Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/create-user.css}" />
+    <script th:src="@{/js/reg.js}" defer></script>
+</head>
+<body>
+<div class="create-form">
+    <form method="post" th:action="@{/users}" th:object="${user}">
+        <!-- Кнопка-крестик -->
+        <a href="/users" class="close-circle">&times;</a>
+
+        <div class="form-icon">
+            <span><i class="icon icon-user"></i></span>
+        </div>
+        <!-- Сообщение об ошибке -->
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <span th:text="${errorMessage}"></span>
+        </div>
+        <!-- Отладочное сообщение -->
+        <div th:if="${debugMessage}" class="alert alert-info">
+            <span th:text="${debugMessage}"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="username" class="font-weight-bold mb-1">Username</label>
+            <input type="text" class="form-control item" id="username" placeholder="Enter Username"
+                   th:field="*{username}" required>
+        </div>
+        <div class="form-group">
+            <label for="password" class="font-weight-bold mb-1">Password</label>
+            <input type="password" class="form-control item" id="password" placeholder="Enter Password"
+                   th:field="*{password}" required>
+        </div>
+        <div class="form-group">
+            <label for="email" class="font-weight-bold mb-1">Email</label>
+            <input type="email" class="form-control item" id="email" placeholder="Enter Email"
+                   th:field="*{email}" required>
+        </div>
+        <div class="form-group">
+            <label for="bio" class="font-weight-bold mb-1">Bio</label>
+            <input type="text" class="form-control item" id="bio" placeholder="Enter Bio"
+                   th:field="*{bio}" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-block create-account">Create Account</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

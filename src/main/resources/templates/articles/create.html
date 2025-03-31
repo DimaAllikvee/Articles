@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Article</title>
+  <!-- Simple Line Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" th:href="@{/css/create-article.css}" />
+  <script th:src="@{/js/create_tag.js}" defer></script>
+</head>
+<body>
+<div class="create-form ">
+
+
+  <form method="post" th:action="@{/articles}" th:object="${article}">
+
+    <a href="/articles" class="close-circle">&times;</a>
+    <div class="form-icon">
+      <span><i class="icon icon-doc"></i></span>
+    </div>
+
+    <!-- Блок отладки: сообщение об ошибке -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+      <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Блок отладки: отладочное сообщение -->
+    <div th:if="${debugMessage}" class="alert alert-info">
+      <span th:text="${debugMessage}"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control item" id="title" placeholder="Enter title" th:field="*{title}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control item" id="description" placeholder="Enter description" th:field="*{description}" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="content" class="form-label">Content</label>
+      <textarea class="form-control item" id="content" placeholder="Enter content" th:field="*{content}" rows="5" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="slug" class="form-label">Slug</label>
+      <input type="text" class="form-control item" id="slug" placeholder="Enter slug" th:field="*{slug}">
+    </div>
+
+    <div class="form-group">
+      <label for="tags" class="form-label">Tags</label>
+      <select id="tags" th:field="*{tags}" class="form-control" multiple>
+        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-block create-account">Create Article</button>
+    </div>
+  </form>
+
+</div>
+</body>
+</html>

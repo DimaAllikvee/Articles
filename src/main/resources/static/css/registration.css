@@ -1,0 +1,16 @@
+.register {
+    min-height: 100vh;
+}
+.bg-image {
+    background-image: url('https://images.unsplash.com/photo-1741850820591-f6954a90c7ba?q=80&w=2667&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+}
+.register-heading {
+    font-weight: 300;
+}
+.btn-register {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}

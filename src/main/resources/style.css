@@ -1,0 +1,32 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Стили для Header */
+header .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Стили для карточек статей */
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Стили для Footer */
+footer a {
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #d3d3d3;
+}
+
+

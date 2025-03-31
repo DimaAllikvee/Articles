@@ -11,32 +11,22 @@ import java.util.Set;
 @Entity
 @Table(name = "article")
 public class Article {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private Author author;
-
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false, length = 50)
     private String title;
 
-    @Column(length = 50, nullable = false)
-    private String slug;
-
-    @Column(length = 500)
     private String description;
-
-    @Column(length = 1000)
+    private String slug;
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    @ManyToOne
 
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToMany
     @JoinTable(
@@ -46,36 +36,30 @@ public class Article {
     )
     private Set<Tag> tags;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "article")
     private List<ArticleComment> comments;
 
+    public Article() {}
 
-    public Article() {
-    }
-
-
-    public Article(Long id,
-                   Author author,
-                   String title,
-                   String slug,
-                   String description,
-                   String content,
-                   LocalDateTime createdAt,
-                   LocalDateTime updatedAt,
-                   Set<Tag> tags,
-                   List<ArticleComment> comments) {
+    public Article(Long id, String title, String description, String slug, String content, User user, Set<Tag> tags, LocalDateTime createdAt, LocalDateTime updatedAt, List<ArticleComment> comments) {
         this.id = id;
-        this.author = author;
         this.title = title;
-        this.slug = slug;
         this.description = description;
+        this.slug = slug;
         this.content = content;
+        this.user = user;
+        this.tags = tags;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.tags = tags;
         this.comments = comments;
     }
-
 
     public Long getId() {
         return id;
@@ -83,14 +67,6 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 
     public String getTitle() {
@@ -101,14 +77,6 @@ public class Article {
         this.title = title;
     }
 
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -117,12 +85,36 @@ public class Article {
         this.description = description;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -139,14 +131,6 @@ public class Article {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
     }
 
     public List<ArticleComment> getComments() {

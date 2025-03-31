@@ -5,18 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "article_comment")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Entity
+@Table(name = "article_comment")
 public class ArticleComment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,9 +27,10 @@ public class ArticleComment {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @Column(length = 500)
+    @Column(nullable = false, length = 500)
     private String content;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 }

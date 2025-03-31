@@ -1,12 +1,19 @@
 package com.example.Articles.entity;
-
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "article_favorite")
 public class ArticleFavorite {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,53 +23,10 @@ public class ArticleFavorite {
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", columnDefinition = "BINARY(16)")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
-
-
-    public ArticleFavorite() {
-    }
-
-    public ArticleFavorite(Long id, Article article, User user, LocalDateTime createdAt) {
-        this.id = id;
-        this.article = article;
-        this.user = user;
-        this.createdAt = createdAt;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
