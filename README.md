@@ -30,7 +30,7 @@ ServiceImpl: реализации интерфейсов сервисов.
 
 1. **Склонировать репозиторий**:
    ```bash
-   git clone https://github.com/your-username/Articles.git
+   git clone https://github.com/DimaAllikvee/Articles.git
    ```
 2. **Импортировать проект** в IDE (IntelliJ IDEA / Eclipse / VS Code):
 
