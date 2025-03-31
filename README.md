@@ -96,7 +96,7 @@ FLUSH PRIVILEGES;
 Если вы хотите импортировать готовую базу данных из дампа, выполните следующую команду в терминале (после установки MySQL):
 
 ```bash
-mysql -u root -p clothing_store < "C:\dump.sql"
+mysql -u root -p название_db < "C:\dump.sql"
 ```
 
 **Пояснение:**
