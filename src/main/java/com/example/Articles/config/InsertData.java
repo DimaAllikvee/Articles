@@ -31,7 +31,7 @@ public class InsertData implements CommandLineRunner {
     public InsertData(UserRepository userRepository,
                       ArticleRepository articleRepository,
                       TagRepository tagRepository) {
-         this.userRepository = userRepository;
+        this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.tagRepository = tagRepository;
 

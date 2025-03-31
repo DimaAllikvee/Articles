@@ -40,9 +40,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         // Разрешаем доступ к регистрации, логину, и статьям для гостей
                         .requestMatchers("/registration", "/login", "/css/**", "/js/**", "/images/**", "/articles", "/articles/**").permitAll()
-                        // Только админ может ходить в /admin/…
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // Остальные URL — только после аутентификации
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -115,16 +115,21 @@ public class ArticleController {
 
     @GetMapping("/delete/{id}")
     public String deleteArticle(@PathVariable Long id, Authentication authentication) {
-        Article article = articleService.getArticleById(id).orElseThrow();
+        Article article = articleService.getArticleById(id).orElseThrow(() -> new IllegalArgumentException("Статья не найдена"));
         String username = authentication.getName();
 
-        if (!article.getUser().getUsername().equals(username)) {
+
+        boolean isAdmin = authServiceImpl.isAdmin(authentication);
+
+        // удаление только если является администратором или автором статьи
+        if (!isAdmin && !article.getUser().getUsername().equals(username)) {
             return "redirect:/articles?error=not-authorized";
         }
 
         articleService.deleteArticle(id);
         return "redirect:/articles";
     }
+
 
     @GetMapping("/by-author/{username}")
     public String getArticlesByAuthor(@PathVariable String username, Model model, Authentication authentication) {
